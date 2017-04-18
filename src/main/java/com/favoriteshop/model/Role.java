@@ -1,5 +1,8 @@
 package com.favoriteshop.model;
 
+import lombok.ToString;
+
+@ToString
 public enum Role {
 
     SIMPLE_USER("Simple user"),

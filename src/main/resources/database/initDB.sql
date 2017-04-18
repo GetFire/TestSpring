@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS public.users (
   login CHARACTER VARYING(30),
   email CHARACTER VARYING(30),
   phone CHARACTER VARYING(30),
-  address CHARACTER VARYING(60)
+  address CHARACTER VARYING(60),
+  password CHARACTER VARYING(35) NOT NULL
 );
 CREATE UNIQUE INDEX users_id_uindex ON public.goods (id);

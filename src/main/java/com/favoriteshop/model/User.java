@@ -28,4 +28,11 @@ public class User extends AbstractModel {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @Column(name = "password")
+    private String password;
+    transient private String confirmPassword;
+
+    @Column(name = "login")
+    private String login;
 }

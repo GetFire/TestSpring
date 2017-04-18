@@ -1,28 +1,32 @@
 package com.favoriteshop.dao.hibernate;
 
-import com.favoriteshop.dao.ProductDao;
 import com.favoriteshop.model.Product;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 
-import java.util.List;
 
-public class ProductHibDao implements ProductDao {
-    public boolean create(Product toCreate) {
-        return false;
+public class ProductHibDao extends AbstractHibDao<Product> {
+
+    public boolean update(Product toUpdate, long id) {
+        boolean res;
+        try (Session session = sessionFactory.openSession()) {
+            try {
+                session.beginTransaction();
+                Product product = getById(id);
+                product.setName(toUpdate.getName());
+                product.setDescription(toUpdate.getDescription());
+                product.setManufacturer(toUpdate.getManufacturer());
+                product.setPrice(toUpdate.getPrice());
+                product.setUrl(toUpdate.getUrl());
+                session.update(product);
+                session.getTransaction().commit();
+                res = true;
+            } catch (HibernateException e) {
+                session.getTransaction().rollback();
+                throw new RuntimeException("Cannot update Product", e);
+            }
+        }
+        return res;
     }
 
-    public boolean delete(long id) {
-        return false;
-    }
-
-    public boolean update(Product toUpdate) {
-        return false;
-    }
-
-    public Product getById(long id) {
-        return null;
-    }
-
-    public List<Product> getAll() {
-        return null;
-    }
 }
